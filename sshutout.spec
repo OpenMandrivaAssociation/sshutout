@@ -1,14 +1,14 @@
-Summary:	A Daemon to Stop SSH Dictionary Attacks
 Name:		sshutout
 Version:	1.0.3
-Release:	%mkrel 1
+Release:	%mkrel 2
+Summary:	A Daemon to Stop SSH Dictionary Attacks
 License:	GPL
 Group:		System/Servers
 URL:		http://www.techfinesse.com/sshutout/sshutout.html
 Source0:	%{name}-%{version}.tar.bz2
-Source1:	%{name}.init.bz2
-Source2:	%{name}.sysconfig.bz2
-Source3:	%{name}.logrotate.bz2
+Source1:	%{name}.init
+Source2:	%{name}.sysconfig
+Source3:	%{name}.logrotate
 Patch0:		sshutout-1.0.3-mdv_conf.diff
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
@@ -45,10 +45,6 @@ incentive to mount dictionary attacks.
 %setup -q -n %{name}-%{version}
 %patch0 -p0
 
-bzcat %{SOURCE1} > %{name}.init
-bzcat %{SOURCE2} > %{name}.sysconfig
-bzcat %{SOURCE3} > %{name}.logrotate
-
 %build
 
 %make COMPILE="%{optflags} -Wall"
@@ -67,9 +63,9 @@ install -m0755 %{name} %{buildroot}%{_sbindir}/
 install -m0644 %{name}.conf %{buildroot}%{_sysconfdir}/
 install -m0644 %{name}.8 %{buildroot}%{_mandir}/man8/
 
-install -m0755 %{name}.init %{buildroot}%{_initrddir}/%{name}
-install -m0644 %{name}.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-install -m0644 %{name}.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+install -m0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
+install -m0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -m0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 # create ghostfiles
 touch %{buildroot}/var/log/%{name}.log
