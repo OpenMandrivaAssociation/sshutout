@@ -1,20 +1,20 @@
 Name:		sshutout
-Version:	1.0.3
-Release:	%mkrel 2
-Summary:	A Daemon to Stop SSH Dictionary Attacks
+Version:	1.0.4
+Release:	%mkrel 1
+Summary:	Daemon to Stop SSH Dictionary Attacks
 License:	GPL
 Group:		System/Servers
 URL:		http://www.techfinesse.com/sshutout/sshutout.html
-Source0:	%{name}-%{version}.tar.bz2
+Source0:	%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.logrotate
-Patch0:		sshutout-1.0.3-mdv_conf.diff
+Patch0:		sshutout-1.0.4-mdv_conf.patch
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Requires:	openssh-server
 Requires:	iptables
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 This is a Linux daemon, written in C, that periodically monitors log
@@ -41,16 +41,14 @@ one small tool intended to help reduce log clutter and diminish the
 incentive to mount dictionary attacks.
 
 %prep
-
-%setup -q -n %{name}-%{version}
-%patch0 -p0
+%setup -q
+%patch0 -p1
 
 %build
-
-%make COMPILE="%{optflags} -Wall"
+%{make} COMPILE="%{optflags} -Wall"
 
 %install
-[ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_initrddir}
 install -d %{buildroot}%{_sbindir}
@@ -78,7 +76,7 @@ touch %{buildroot}/var/log/%{name}.log
 %_preun_service %{name}
 
 %clean
-[ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
