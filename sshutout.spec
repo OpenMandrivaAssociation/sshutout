@@ -17,7 +17,7 @@ Requires:	iptables
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
-This is a Linux daemon, written in C, that periodically monitors log
+This is a Linux daemon, that periodically monitors log
 files looking for multiple failed login attempts via the Secure Shell
 daemon (sshd, or optionally, sshd2). The daemon is meant to mitigate
 what are commonly known as "dictionary attacks," i.e. scripted brute
