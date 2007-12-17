@@ -14,7 +14,6 @@ Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Requires:	openssh-server
 Requires:	iptables
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 This is a Linux daemon, that periodically monitors log
