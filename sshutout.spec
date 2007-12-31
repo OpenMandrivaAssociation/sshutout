@@ -1,19 +1,20 @@
-Name:		sshutout
-Version:	1.0.4
-Release:	%mkrel 1
-Summary:	Daemon to Stop SSH Dictionary Attacks
-License:	GPL
-Group:		System/Servers
-URL:		http://www.techfinesse.com/sshutout/sshutout.html
-Source0:	%{name}-%{version}.tar.gz
-Source1:	%{name}.init
-Source2:	%{name}.sysconfig
-Source3:	%{name}.logrotate
-Patch0:		sshutout-1.0.4-mdv_conf.patch
+Name:           sshutout
+Version:        1.0.5
+Release:        %mkrel 1
+Summary:        Daemon to Stop SSH Dictionary Attacks
+License:        GPL
+Group:          System/Servers
+URL:            http://www.techfinesse.com/sshutout/sshutout.html
+Source0:        %{name}-%{version}.tar.gz
+Source1:        %{name}.init
+Source2:        %{name}.sysconfig
+Source3:        %{name}.logrotate
+Patch0:         sshutout-1.0.4-mdv_conf.patch
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
-Requires:	openssh-server
-Requires:	iptables
+Requires:       openssh-server
+Requires:       iptables
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 This is a Linux daemon, that periodically monitors log
@@ -44,41 +45,41 @@ incentive to mount dictionary attacks.
 %patch0 -p1
 
 %build
-%{make} COMPILE="%{optflags} -Wall"
+%{make} COMPILE="%{optflags}"
 
 %install
-rm -rf %{buildroot}
+%{__rm} -rf %{buildroot}
 
-install -d %{buildroot}%{_initrddir}
-install -d %{buildroot}%{_sbindir}
-install -d %{buildroot}%{_sysconfdir}/sysconfig
-install -d %{buildroot}%{_sysconfdir}/logrotate.d
-install -d %{buildroot}%{_mandir}/man8
-install -d %{buildroot}/var/log
+%{__mkdir_p} %{buildroot}%{_initrddir}
+%{__mkdir_p} %{buildroot}%{_sbindir}
+%{__mkdir_p} %{buildroot}%{_sysconfdir}/sysconfig
+%{__mkdir_p} %{buildroot}%{_sysconfdir}/logrotate.d
+%{__mkdir_p} %{buildroot}%{_mandir}/man8
+%{__mkdir_p} %{buildroot}%{_logdir}
 
-install -m0755 %{name} %{buildroot}%{_sbindir}/
-install -m0644 %{name}.conf %{buildroot}%{_sysconfdir}/
-install -m0644 %{name}.8 %{buildroot}%{_mandir}/man8/
+install -m 0755 %{name} %{buildroot}%{_sbindir}/
+install -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/
+install -m 0644 %{name}.8 %{buildroot}%{_mandir}/man8/
 
-install -m0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
-install -m0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-install -m0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+install -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
+install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 # create ghostfiles
-touch %{buildroot}/var/log/%{name}.log
+/bin/touch %{buildroot}%{_logdir}/%{name}.log
 
 %post
-%create_ghostfile /var/log/%{name}.log root root 0644
+%create_ghostfile %{_logdir}/%{name}.log root root 0644
 %_post_service %{name}
 
 %preun
 %_preun_service %{name}
 
 %clean
-rm -rf %{buildroot}
+%{__rm} -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
+%defattr(0644,root,root,0755)
 %doc License README sshutout.html
 %attr(0755,root,root) %{_initrddir}/%{name}
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/%{name}.conf
@@ -86,4 +87,4 @@ rm -rf %{buildroot}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0755,root,root) %{_sbindir}/*
 %attr(0644,root,root) %{_mandir}/man8/*
-%attr(0644,root,root) %ghost %config(noreplace) /var/log/%{name}.log
+%attr(0644,root,root) %ghost %config(noreplace) %{_logdir}/%{name}.log
