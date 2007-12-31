@@ -1,6 +1,6 @@
 Name:           sshutout
 Version:        1.0.5
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        Daemon to Stop SSH Dictionary Attacks
 License:        GPL
 Group:          System/Servers
@@ -57,13 +57,13 @@ incentive to mount dictionary attacks.
 %{__mkdir_p} %{buildroot}%{_mandir}/man8
 %{__mkdir_p} %{buildroot}%{_logdir}
 
-install -m 0755 %{name} %{buildroot}%{_sbindir}/
-install -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/
-install -m 0644 %{name}.8 %{buildroot}%{_mandir}/man8/
+%{__install} -p -m 0755 %{name} %{buildroot}%{_sbindir}/
+%{__install} -p -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/
+%{__install} -p -m 0644 %{name}.8 %{buildroot}%{_mandir}/man8/
 
-install -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
-install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-install -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+%{__install} -p -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
+%{__install} -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+%{__install} -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 # create ghostfiles
 /bin/touch %{buildroot}%{_logdir}/%{name}.log
