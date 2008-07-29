@@ -1,6 +1,6 @@
 Name:           sshutout
 Version:        1.0.5
-Release:        %mkrel 2
+Release:        %mkrel 4
 Summary:        Daemon to Stop SSH Dictionary Attacks
 License:        GPL
 Group:          System/Servers
