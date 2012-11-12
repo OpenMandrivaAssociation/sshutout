@@ -1,0 +1,5 @@
+sources:
+  "sshutout-1.0.5.tar.gz:"	5abccf8a49ead364ff9f76366b3651b5e3068f1b
+  "sshutout.init:"	fb511e4ff6004e33a673e122165f01f1980a9ac4
+  "sshutout.logrotate:"	447d9aca6400632d16478b656e33ded36ce3f600
+  "sshutout.sysconfig:"	e82cfa5aaf3dd79b596fc14bbf29297b9c7bf79e

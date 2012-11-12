@@ -1,0 +1,73 @@
+--- sshutout-1.0.4/sshutout.conf.orig	2007-11-09 02:21:35.000000000 +0100
++++ sshutout-1.0.4/sshutout.conf	2007-11-17 23:01:37.000000000 +0100
+@@ -7,17 +7,17 @@
+ # The polling interval is given in seconds and determine how often
+ # the ssh log is examined. Range 30 - 300
+ 
+-#polling_interval = 60
++polling_interval = 60
+ 
+ # The delay penalty is given in seconds and specifies how long the
+ # firewall rule should remain effective. Range 60 - 86400
+ 
+-#delay_penalty = 300
++delay_penalty = 300
+ 
+ # The threshold value gives how many failed login attempts will trigger a
+ # block at the firewall. Value >= 3
+ 
+-#threshold = 4
++threshold = 4
+ 
+ # The following parameter gives the name of the file that is scanned for
+ # ssh login attempts. Typical values are:
+@@ -28,23 +28,23 @@
+ #
+ # Consult your Linux distribution for the correct setting.
+ 
+-#sshd_log_file = /var/log/messages
++sshd_log_file = /var/log/messages
+ 
+ # The next parameter gives the name of the file where attacker
+ # IP addresses are logged.
+ 
+-#sshutout_log_file = /var/log/sshutout.log
++sshutout_log_file = /var/log/sshutout.log
+ 
+ # This parameter gives the name of the ssh daemon that we are
+ # monitoring. Openssh names its daemon, "sshd", while
+ # ssh.com's daemon is named, "sshd2" 
+ # Legal values are restricted to sshd or sshd2
+ 
+-#ssh_daemon = sshd
++ssh_daemon = sshd
+ 
+ # The sshutout daemon process' PID is stored in this file.
+ 
+-#pid_file = /var/run/sshutout.pid
++pid_file = /var/run/sshutout.pid
+ 
+ # The whitelist value is specified as a comma separated list of IPv4
+ # addresses (dotted quad or host name) which will be ignored by
+@@ -61,7 +61,7 @@
+ # Valid values (case insensitive):
+ #	y, n, yes, no, 1, 0, t, f, true, false, on, off
+ 
+-#auto_whitelist = yes
++auto_whitelist = yes
+ 
+ # Should we firewall portscans seen by ssh daemon, 
+ # i.e. those hosts whose probes leave those 
+@@ -69,10 +69,10 @@
+ # Valid values (case insensitive):
+ #	y, n, yes, no, 1, 0, t, f, true, false, on, off
+ 
+-#squelch_portscan = no
++squelch_portscan = yes
+ 
+ # Should we monitor and count "Illegal user" or "Invalid user" attempts
+ # as well as failed logins? Valid values (case insensitive):
+ #	y, n, yes, no, 1, 0, t, f, true, false, on, off
+ 
+-#illegal_user = no
++illegal_user = yes
