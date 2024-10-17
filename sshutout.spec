@@ -4,7 +4,7 @@ Release:        %mkrel 6
 Summary:        Daemon to Stop SSH Dictionary Attacks
 License:        GPL
 Group:          System/Servers
-URL:            http://www.techfinesse.com/sshutout/sshutout.html
+URL:            https://www.techfinesse.com/sshutout/sshutout.html
 Source0:        %{name}-%{version}.tar.gz
 Source1:        %{name}.init
 Source2:        %{name}.sysconfig
